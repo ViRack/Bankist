@@ -68,3 +68,36 @@ btnScrollTo.addEventListener("click", function (e) {
     behavior: "smooth",
   });
 });
+
+////////////////////////////////////////
+// Page Navigation
+// Delegation
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log('in it');
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    console.log('in the if');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
+});
+
+// ----not the cleanest method as this will attach the function to EVERY "link", wasteful
+// --- use above delegation method instead, especially when case for multiple "links"
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({
+//       behavior: 'smooth'
+//     });
+
+//   });
+// });
