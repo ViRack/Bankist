@@ -74,18 +74,17 @@ btnScrollTo.addEventListener("click", function (e) {
 // Delegation
 // 1. Add event listener to common parent element
 // 2. Determine what element originated the event
-document.querySelector('.nav__links').addEventListener('click', function (e) {
+document.querySelector(".nav__links").addEventListener("click", function (e) {
   e.preventDefault();
-  console.log('in it');
-  if (e.target.classList.contains('nav__link')) {
-    const id = e.target.getAttribute('href');
-    console.log('in the if');
+  console.log("in it");
+  if (e.target.classList.contains("nav__link")) {
+    const id = e.target.getAttribute("href");
+    console.log("in the if");
     console.log(id);
     document.querySelector(id).scrollIntoView({
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   }
-
 });
 
 // ----not the cleanest method as this will attach the function to EVERY "link", wasteful
@@ -101,3 +100,25 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
 //   });
 // });
+
+// tabbed component
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContainer = document.querySelector(".operations__tab-container");
+const tabsContent = document.querySelectorAll(".operations__content");
+
+tabsContainer.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".operations__tab");
+  if (!clicked) return;
+
+  //Deativate Tab
+  tabs.forEach(t => t.classList.remove("operations__tab--active"));
+  tabsContent.forEach(c => c.classList.remove("operations__content--active"));
+
+  //Activate Tab
+  clicked.classList.add("operations__tab--active");
+
+  // Activate content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add("operations__content--active");
+});
